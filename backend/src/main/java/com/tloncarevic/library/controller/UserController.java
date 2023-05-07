@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     private final UserRepository userRepository;
@@ -20,12 +21,16 @@ public class UserController {
     }
 
     @GetMapping
+    @CrossOrigin(origins = "*")
     public List<User> getUsers() {
+
+        System.out.println("[GET] /users");
         return (List<User>) userRepository.findAll();
     }
 
     @GetMapping("/{id}")
     public User getUser(@PathVariable Long id) {
+        System.out.println("[GET] /users/"+id);
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
