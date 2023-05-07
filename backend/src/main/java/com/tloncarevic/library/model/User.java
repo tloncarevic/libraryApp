@@ -21,7 +21,7 @@ public class User {
     private Book book;
 
     // User constructor
-
+    public User(){}
     public User(Long id, String firstName, String lastName, String email, Book book) {
         this.id = id;
         this.firstName = firstName;

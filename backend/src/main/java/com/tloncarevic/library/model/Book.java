@@ -13,7 +13,7 @@ public class Book {
     private String bookAuthor;
 
     //Book constructor
-
+    public Book(){}
     public Book(Long id, String bookTitle, String bookAuthor) {
         this.id = id;
         this.bookTitle = bookTitle;
