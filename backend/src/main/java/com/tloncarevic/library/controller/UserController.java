@@ -36,12 +36,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
+        System.out.println("[POST] /users");
         User savedUser = userRepository.save(user);
         return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity updateUser(@PathVariable Long id, @RequestBody User user) {
+        System.out.println("[PUT] /users");
         User currentUser = userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setFirstName(user.getFirstName());
         currentUser.setLastName(user.getLastName());
@@ -55,6 +57,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
+        System.out.println("[DELETE] /users/"+id);
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
