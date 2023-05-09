@@ -11,6 +11,7 @@ import java.util.List;
 
     @RestController
     @RequestMapping("/books")
+    @CrossOrigin(origins = "*")
     public class BookController {
 
         private final BookRepository bookRepository;
@@ -20,23 +21,31 @@ import java.util.List;
         }
 
         @GetMapping
+        @CrossOrigin(origins = "*")
         public List<Book> getBooks() {
+            System.out.println("[GET] /books");
             return (List<Book>) bookRepository.findAll();
         }
 
+
+
         @GetMapping("/{id}")
         public Book getBook(@PathVariable Long id) {
+            System.out.println("[GET] /books/"+id);
             return bookRepository.findById(id).orElseThrow(RuntimeException::new);
         }
 
+
         @PostMapping
         public ResponseEntity createBook(@RequestBody Book book) throws URISyntaxException {
+            System.out.println("[POST] /books");
             Book savedBook = bookRepository.save(book);
             return ResponseEntity.created(new URI("/books/" + savedBook.getId())).body(savedBook);
         }
 
         @PutMapping("/{id}")
         public ResponseEntity updateBook(@PathVariable Long id, @RequestBody Book book) {
+            System.out.println("[PUT] /books");
             Book currentBook = bookRepository.findById(id).orElseThrow(RuntimeException::new);
             currentBook.setId(book.getId());
             currentBook.setBookAuthor(book.getBookAuthor());
@@ -49,6 +58,7 @@ import java.util.List;
 
         @DeleteMapping("/{id}")
         public ResponseEntity deleteBook(@PathVariable Long id) {
+            System.out.println("[DELETE] /books/"+id);
             bookRepository.deleteById(id);
             return ResponseEntity.ok().build();
         }
